@@ -1,4 +1,5 @@
 const { babel } = require('@rollup/plugin-babel');
+const webWorkerLoader = require('rollup-plugin-web-worker-loader');
 const changeCase = require('change-case');
 const createBanner = require('create-banner');
 const pkg = require('./package');
@@ -44,5 +45,6 @@ module.exports = {
     babel({
       babelHelpers: 'bundled',
     }),
+    webWorkerLoader(),
   ],
 };

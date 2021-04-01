@@ -136,6 +136,8 @@ export default {
         height: newHeight,
       });
 
+      element.getElementsByTagName('img')[0].src = this.image.src;
+
       setStyle(element.getElementsByTagName('img')[0], assign({
         width: width * ratio,
         height: height * ratio,

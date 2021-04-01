@@ -1,6 +1,8 @@
 export const IS_BROWSER = typeof window !== 'undefined' && typeof window.document !== 'undefined';
 export const WINDOW = IS_BROWSER ? window : {};
-export const IS_TOUCH_DEVICE = IS_BROWSER && WINDOW.document.documentElement ? 'ontouchstart' in WINDOW.document.documentElement : false;
+export const IS_TOUCH_DEVICE = IS_BROWSER && WINDOW.document.documentElement
+  ? 'ontouchstart' in WINDOW.document.documentElement
+  : false;
 export const HAS_POINTER_EVENT = IS_BROWSER ? 'PointerEvent' in WINDOW : false;
 export const NAMESPACE = 'cropper';
 
@@ -44,10 +46,18 @@ export const EVENT_CROP_START = 'cropstart';
 export const EVENT_DBLCLICK = 'dblclick';
 export const EVENT_TOUCH_START = IS_TOUCH_DEVICE ? 'touchstart' : 'mousedown';
 export const EVENT_TOUCH_MOVE = IS_TOUCH_DEVICE ? 'touchmove' : 'mousemove';
-export const EVENT_TOUCH_END = IS_TOUCH_DEVICE ? 'touchend touchcancel' : 'mouseup';
-export const EVENT_POINTER_DOWN = HAS_POINTER_EVENT ? 'pointerdown' : EVENT_TOUCH_START;
-export const EVENT_POINTER_MOVE = HAS_POINTER_EVENT ? 'pointermove' : EVENT_TOUCH_MOVE;
-export const EVENT_POINTER_UP = HAS_POINTER_EVENT ? 'pointerup pointercancel' : EVENT_TOUCH_END;
+export const EVENT_TOUCH_END = IS_TOUCH_DEVICE
+  ? 'touchend touchcancel'
+  : 'mouseup';
+export const EVENT_POINTER_DOWN = HAS_POINTER_EVENT
+  ? 'pointerdown'
+  : EVENT_TOUCH_START;
+export const EVENT_POINTER_MOVE = HAS_POINTER_EVENT
+  ? 'pointermove'
+  : EVENT_TOUCH_MOVE;
+export const EVENT_POINTER_UP = HAS_POINTER_EVENT
+  ? 'pointerup pointercancel'
+  : EVENT_TOUCH_END;
 export const EVENT_READY = 'ready';
 export const EVENT_RESIZE = 'resize';
 export const EVENT_WHEEL = 'wheel';
@@ -66,3 +76,13 @@ export const REGEXP_TAG_NAME = /^img|canvas$/i;
 // Inspired by the default width and height of a canvas element.
 export const MIN_CONTAINER_WIDTH = 200;
 export const MIN_CONTAINER_HEIGHT = 100;
+
+// Filters/Settings
+export const SETTINGS = {
+  BRIGHTNESS: { name: 'brightness', min: -100, max: 100 },
+  SEPIA: { name: 'sepia' },
+  INVERT: { name: 'invert' },
+  GREYSCALE: { name: 'greyscale' },
+  SATURATION: { name: 'saturation', min: -100, max: 100 },
+  VIBRANCE: { name: 'vibrance', min: -100, max: 100 },
+};

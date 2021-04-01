@@ -6,6 +6,7 @@ import events from './events';
 import handlers from './handlers';
 import change from './change';
 import methods from './methods';
+import settings from './settings';
 import {
   ACTION_ALL,
   CLASS_HIDDEN,
@@ -48,7 +49,9 @@ class Cropper {
    */
   constructor(element, options = {}) {
     if (!element || !REGEXP_TAG_NAME.test(element.tagName)) {
-      throw new Error('The first argument is required and must be an <img> or <canvas> element.');
+      throw new Error(
+        'The first argument is required and must be an <img> or <canvas> element.',
+      );
     }
 
     this.element = element;
@@ -163,7 +166,11 @@ class Cropper {
     };
 
     // Bust cache when there is a "crossOrigin" property to avoid browser cache error
-    if (options.checkCrossOrigin && isCrossOriginURL(url) && element.crossOrigin) {
+    if (
+      options.checkCrossOrigin
+      && isCrossOriginURL(url)
+      && element.crossOrigin
+    ) {
       url = addTimestamp(url);
     }
 
@@ -243,7 +250,8 @@ class Cropper {
 
     // Match all browsers that use WebKit as the layout engine in iOS devices,
     // such as Safari for iOS, Chrome for iOS, and in-app browsers.
-    const isIOSWebKit = WINDOW.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(WINDOW.navigator.userAgent);
+    const isIOSWebKit = WINDOW.navigator
+      && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(WINDOW.navigator.userAgent);
     const done = (naturalWidth, naturalHeight) => {
       assign(this.imageData, {
         naturalWidth,
@@ -280,8 +288,7 @@ class Cropper {
     // iOS WebKit will convert the image automatically
     // with its orientation once append it into DOM (#279)
     if (!isIOSWebKit) {
-      sizingImage.style.cssText = (
-        'left:0;'
+      sizingImage.style.cssText = 'left:0;'
         + 'max-height:none!important;'
         + 'max-width:none!important;'
         + 'min-height:0!important;'
@@ -289,8 +296,7 @@ class Cropper {
         + 'opacity:0;'
         + 'position:absolute;'
         + 'top:0;'
-        + 'z-index:-1;'
-      );
+        + 'z-index:-1;';
       body.appendChild(sizingImage);
     }
   }
@@ -354,11 +360,17 @@ class Cropper {
     addClass(cropBox, CLASS_HIDDEN);
 
     if (!options.guides) {
-      addClass(cropBox.getElementsByClassName(`${NAMESPACE}-dashed`), CLASS_HIDDEN);
+      addClass(
+        cropBox.getElementsByClassName(`${NAMESPACE}-dashed`),
+        CLASS_HIDDEN,
+      );
     }
 
     if (!options.center) {
-      addClass(cropBox.getElementsByClassName(`${NAMESPACE}-center`), CLASS_HIDDEN);
+      addClass(
+        cropBox.getElementsByClassName(`${NAMESPACE}-center`),
+        CLASS_HIDDEN,
+      );
     }
 
     if (options.background) {
@@ -375,8 +387,14 @@ class Cropper {
     }
 
     if (!options.cropBoxResizable) {
-      addClass(cropBox.getElementsByClassName(`${NAMESPACE}-line`), CLASS_HIDDEN);
-      addClass(cropBox.getElementsByClassName(`${NAMESPACE}-point`), CLASS_HIDDEN);
+      addClass(
+        cropBox.getElementsByClassName(`${NAMESPACE}-line`),
+        CLASS_HIDDEN,
+      );
+      addClass(
+        cropBox.getElementsByClassName(`${NAMESPACE}-point`),
+        CLASS_HIDDEN,
+      );
     }
 
     this.render();
@@ -395,6 +413,8 @@ class Cropper {
       });
     }
 
+    // calling settings init method to load canvas and worker
+    this.initSettings();
     dispatchEvent(element, EVENT_READY);
   }
 
@@ -445,6 +465,15 @@ class Cropper {
   }
 }
 
-assign(Cropper.prototype, render, preview, events, handlers, change, methods);
+assign(
+  Cropper.prototype,
+  render,
+  preview,
+  events,
+  handlers,
+  change,
+  methods,
+  settings,
+);
 
 export default Cropper;

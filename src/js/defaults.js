@@ -101,4 +101,9 @@ export default {
   cropend: null,
   crop: null,
   zoom: null,
+
+  // Filters
+  brightnessValue: 0,
+  contrastValue: 0,
+
 };
